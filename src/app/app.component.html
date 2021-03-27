@@ -1,15 +1,12 @@
-<mat-toolbar class="example-header">Header</mat-toolbar>
+<mat-toolbar class='example-header'>
+  Header
+  <button mat-button (click)='printPage()'>PRINT PAGE</button>
+  <button mat-button (click)='printMainContent()'>PRINT MAIN CONTENT</button>
+</mat-toolbar>
 
 <mat-sidenav-container class="example-container">
-  <mat-sidenav
-    #sidenav
-    mode="side"
-    opened
-    class="example-sidenav"
-    [fixedInViewport]="options.value.fixed"
-    [fixedTopGap]="options.value.top"
-    [fixedBottomGap]="options.value.bottom"
-  >
+  <mat-sidenav #sidenav mode="side" opened class="example-sidenav" [fixedInViewport]="options.value.fixed"
+    [fixedTopGap]="options.value.top" [fixedBottomGap]="options.value.bottom">
     <h2>Sidenav</h2>
   </mat-sidenav>
 
@@ -17,11 +14,7 @@
     <ng-container *ngFor="let hero of heros">
       <mat-card class="example-card" [style.background]="hero.color">
         <mat-card-header>
-          <div
-            mat-card-avatar
-            class="example-header-image"
-            [style.backgroundImage]="hero.avatar"
-          ></div>
+          <div mat-card-avatar class="example-header-image" [style.backgroundImage]="hero.avatar"></div>
           <mat-card-title>{{hero.name}}</mat-card-title>
           <mat-card-subtitle>{{hero.breed}}</mat-card-subtitle>
         </mat-card-header>

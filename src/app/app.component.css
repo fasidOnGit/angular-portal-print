@@ -1,7 +1,7 @@
 .example-container {
   position: absolute;
-  top: 60px;
-  bottom: 60px;
+  top: 35px;
+  bottom: 18px;
   left: 0;
   right: 0;
 }
@@ -19,6 +19,10 @@
   top: 0;
   left: 0;
   right: 0;
+  display: flex;
+  justify-content: space-between;
+  background: black;
+  color: white;
 }
 
 .example-footer {
@@ -26,8 +30,9 @@
   bottom: 0;
   left: 0;
   right: 0;
+  color: white;
+  background: black;
 }
-
 
 .example-card {
   max-width: 400px;

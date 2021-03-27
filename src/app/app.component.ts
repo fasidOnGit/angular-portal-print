@@ -29,6 +29,14 @@ export class AppComponent {
     });
   }
 
+  printPage() {
+    window.print();
+  }
+
+  printMainContent() {
+    window.print();
+  }
+
   private getFakeData(length: number): IHero[] {
     return Array.from({ length }).map(
       (_, idx) =>
