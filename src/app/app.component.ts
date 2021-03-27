@@ -1,4 +1,18 @@
-import { Component } from "@angular/core";
+import {
+  DomPortalOutlet,
+  PortalOutlet,
+  TemplatePortal
+} from "@angular/cdk/portal";
+import { DOCUMENT } from "@angular/common";
+import {
+  ApplicationRef,
+  Component,
+  ComponentFactoryResolver,
+  Inject,
+  Injector,
+  ViewChild,
+  ViewContainerRef
+} from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import * as faker from "faker";
 import tinycolor from "tinycolor2";
@@ -17,11 +31,22 @@ interface IHero {
   styleUrls: ["./app.component.scss"]
 })
 export class AppComponent {
+  @ViewChild("listHeros") listHerosRef;
   options: FormGroup;
   heros: IHero[];
 
-  constructor(fb: FormBuilder) {
-    this.heros = this.getFakeData(10);
+  private portalHost: PortalOutlet;
+  private portal;
+
+  constructor(
+    fb: FormBuilder,
+    @Inject(DOCUMENT) private document: Document,
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private injector: Injector,
+    private appRef: ApplicationRef,
+    private viewContainerRef: ViewContainerRef
+  ) {
+    this.heros = this.getFakeData(5);
     this.options = fb.group({
       bottom: 0,
       fixed: false,
@@ -34,7 +59,37 @@ export class AppComponent {
   }
 
   printMainContent() {
-    window.print();
+    const printAnchor = this.document.querySelector(
+      "#print-anchor"
+    ) as HTMLDivElement;
+    const iframe = this._createIframe(printAnchor);
+    this.portalHost = new DomPortalOutlet(
+      iframe.contentDocument.body,
+      this.componentFactoryResolver,
+      this.appRef,
+      this.injector
+    );
+
+    this.portal = new TemplatePortal(this.listHerosRef, this.viewContainerRef, {
+      heros: this.heros
+    });
+
+    // Attach portal to host
+    this.portalHost.attach(this.portal);
+    iframe.contentWindow.onafterprint = () => {
+      iframe.remove();
+    };
+
+    setTimeout(() => {
+      iframe.contentWindow.print();
+    });
+  }
+
+  _createIframe(printAnchor: HTMLDivElement): HTMLIFrameElement {
+    const iframe = this.document.createElement("iframe");
+    console.log(printAnchor);
+    printAnchor.appendChild(iframe);
+    return iframe;
   }
 
   private getFakeData(length: number): IHero[] {

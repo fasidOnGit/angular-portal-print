@@ -13,6 +13,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { MatListModule } from "@angular/material/list";
 import { MatCardModule } from "@angular/material/card";
+import { PortalModule } from "@angular/cdk/portal";
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,7 +30,8 @@ import { MatCardModule } from "@angular/material/card";
     MatButtonModule,
     MatListModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    PortalModule
   ],
   exports: [RouterModule],
   providers: [],
