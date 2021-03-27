@@ -1,0 +1,49 @@
+<mat-toolbar class="example-header">Header</mat-toolbar>
+
+<mat-sidenav-container class="example-container">
+  <mat-sidenav
+    #sidenav
+    mode="side"
+    opened
+    class="example-sidenav"
+    [fixedInViewport]="options.value.fixed"
+    [fixedTopGap]="options.value.top"
+    [fixedBottomGap]="options.value.bottom"
+  >
+    <h2>Sidenav</h2>
+  </mat-sidenav>
+
+  <mat-sidenav-content [formGroup]="options">
+    <ng-container *ngFor="let hero of heros">
+      <mat-card class="example-card" [style.background]="hero.color">
+        <mat-card-header>
+          <div
+            mat-card-avatar
+            class="example-header-image"
+            [style.backgroundImage]="hero.avatar"
+          ></div>
+          <mat-card-title>{{hero.name}}</mat-card-title>
+          <mat-card-subtitle>{{hero.breed}}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="hero.avatar" [alt]="hero.name" />
+        <mat-card-content>
+          <p>
+            {{hero.description}}
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>LIKE</button>
+          <button mat-button>SHARE</button>
+        </mat-card-actions>
+      </mat-card>
+    </ng-container>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<mat-toolbar class="example-footer">Footer</mat-toolbar>
+
+<div *ngIf="!shouldRun">Please open on StackBlitz to see result</div>
+
+<!-- Copyright 2020 Google LLC. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->
