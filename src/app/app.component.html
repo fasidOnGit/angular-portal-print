@@ -1,7 +1,7 @@
 <mat-toolbar class='example-header'>
   Header
   <button mat-button (click)='printPage()'>PRINT PAGE</button>
-  <button mat-button (click)='printMainContent()'>PRINT MAIN CONTENT</button>
+  <!-- <button mat-button (click)='printMainContent()'>PRINT MAIN CONTENT</button> -->
 </mat-toolbar>
 
 <mat-sidenav-container class="example-container">
@@ -14,7 +14,6 @@
     <ng-container *ngTemplateOutlet="listHeros; context:{heros: heros}"></ng-container>
   </mat-sidenav-content>
 </mat-sidenav-container>
-<div id="print-anchor"></div>
 
 <mat-toolbar class="example-footer">Footer</mat-toolbar>
 

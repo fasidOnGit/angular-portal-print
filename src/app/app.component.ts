@@ -16,6 +16,7 @@ import {
 import { FormBuilder, FormGroup } from "@angular/forms";
 import * as faker from "faker";
 import tinycolor from "tinycolor2";
+import { heros } from "./heros";
 
 interface IHero {
   name: string;
@@ -58,48 +59,15 @@ export class AppComponent {
     window.print();
   }
 
-  printMainContent() {
-    const printAnchor = this.document.querySelector(
-      "#print-anchor"
-    ) as HTMLDivElement;
-    const iframe = this._createIframe(printAnchor);
-    this.portalHost = new DomPortalOutlet(
-      iframe.contentDocument.body,
-      this.componentFactoryResolver,
-      this.appRef,
-      this.injector
-    );
-
-    this.portal = new TemplatePortal(this.listHerosRef, this.viewContainerRef, {
-      heros: this.heros
-    });
-
-    // Attach portal to host
-    this.portalHost.attach(this.portal);
-    iframe.contentWindow.onafterprint = () => {
-      iframe.remove();
-    };
-
-    setTimeout(() => {
-      iframe.contentWindow.print();
-    });
-  }
-
-  _createIframe(printAnchor: HTMLDivElement): HTMLIFrameElement {
-    const iframe = this.document.createElement("iframe");
-    console.log(printAnchor);
-    printAnchor.appendChild(iframe);
-    return iframe;
-  }
-
   private getFakeData(length: number): IHero[] {
+    length = length > 15 ? 15 : length;
     return Array.from({ length }).map(
       (_, idx) =>
         ({
-          name: faker.name.firstName(),
-          breed: faker.name.lastName(),
+          name: heros[idx].name,
+          breed: heros[idx].work.base,
           description: faker.lorem.paragraph(),
-          avatar: faker.image.imageUrl() + `?idx=${idx}`,
+          avatar: heros[idx].image.url,
           color: tinycolor.random().toHexString(),
           power: Math.random() * 10
         } as IHero)
